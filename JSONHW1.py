@@ -1,5 +1,6 @@
 import json
 
+# program for fires 9/1-9/13
 infile = open("US_fires_9_1.json", "r")
 
 
@@ -9,6 +10,7 @@ fire_data = json.load(infile)
 # list_of_fires = fire_data["features"]
 bright, lons, lats = [], [], []
 
+# pull data from json and only append to list if greater than 450 brightness
 for fire in fire_data:
     bright_level = fire["brightness"]
     lon = fire["longitude"]
@@ -19,14 +21,12 @@ for fire in fire_data:
         lons.append(lon)
         lats.append(lat)
 
-# print(mags[:10])
-# print(lons[:10])
-# print(lats[:10])
+# import plotly
 
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
-#data = [Scattergeo(lon=lons, lat=lats)]
+# data list
 data = [
     {
         "type": "scattergeo",
@@ -40,7 +40,7 @@ data = [
         },
     }
 ]
-
+# formatting
 my_layout = Layout(title="US Fires - 9/1/20-9/13/20")
 fig = {"data": data, "layout": my_layout}
 
